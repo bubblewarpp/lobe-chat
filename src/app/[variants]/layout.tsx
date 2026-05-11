@@ -74,6 +74,8 @@ export const generateViewport = async (props: DynamicLayoutProps): ResolvingView
 };
 
 export const generateStaticParams = () => {
+  if (process.env.VERCEL === '1') return [];
+
   const themes: ThemeAppearance[] = ['dark', 'light'];
   const mobileOptions = [true, false];
   // only static for serveral page, other go to dynamtic

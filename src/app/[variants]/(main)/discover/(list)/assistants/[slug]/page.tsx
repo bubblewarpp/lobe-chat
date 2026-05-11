@@ -64,6 +64,8 @@ const Page = async (props: DiscoverPageProps<AssistantCategory>) => {
 };
 
 export const generateStaticParams = async () => {
+  if (process.env.VERCEL === '1') return [];
+
   const cates = Object.values(AssistantCategory);
   return cates.map((cate) => ({
     slug: cate,

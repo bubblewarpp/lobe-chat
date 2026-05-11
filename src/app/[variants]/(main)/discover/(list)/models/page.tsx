@@ -61,6 +61,8 @@ const Page = async (props: DiscoverPageProps) => {
 };
 
 export const generateStaticParams = async () => {
+  if (process.env.VERCEL === '1') return [];
+
   const discoverService = new DiscoverService();
   const cates = await discoverService.getProviderList(DEFAULT_LANG);
   return cates.map((cate) => ({
