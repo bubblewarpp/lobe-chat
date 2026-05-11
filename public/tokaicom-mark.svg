@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="TOKAICOM Mitra Indonesia">
+  <defs>
+    <linearGradient id="blueWing" x1="14" x2="110" y1="86" y2="26" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0B5CAD" />
+      <stop offset="0.55" stop-color="#2563EB" />
+      <stop offset="1" stop-color="#9DB4E8" />
+    </linearGradient>
+    <linearGradient id="softWing" x1="36" x2="118" y1="62" y2="24" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C9D6F6" />
+      <stop offset="1" stop-color="#EEF3FF" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#F8FAFC" />
+  <path d="M20 58 108 28 92 56 22 86Z" fill="url(#softWing)" />
+  <path d="M17 70 105 38 82 87 18 99Z" fill="url(#blueWing)" />
+  <path d="M42 57h37l-7 16H61l-13 38H28Z" fill="#FFFFFF" />
+  <path d="M28 74h25l-7 18H21Z" fill="#003F8F" opacity=".72" />
+</svg>

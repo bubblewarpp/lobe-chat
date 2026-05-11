@@ -84,7 +84,12 @@ const CustomLogo = memo<LobeChatProps>(({ extra, size = 32, className, style, ty
       break;
     }
     case 'text': {
-      logoComponent = <CustomTextLogo size={size} style={style} {...rest} />;
+      logoComponent = (
+        <Flexbox align={'center'} flex={'none'} horizontal style={style} {...rest}>
+          <CustomImageLogo size={size} />
+          <CustomTextLogo size={size} style={{ marginLeft: Math.round(size / 4) }} />
+        </Flexbox>
+      );
       break;
     }
     case 'combine': {
