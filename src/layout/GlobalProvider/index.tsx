@@ -2,13 +2,13 @@ import { ReactNode, Suspense } from 'react';
 
 import { appEnv } from '@/config/app';
 import { getServerFeatureFlagsValue } from '@/config/featureFlags';
-import DevPanel from '@/features/DevPanel';
 import { getServerGlobalConfig } from '@/server/globalConfig';
 import { ServerConfigStoreProvider } from '@/store/serverConfig/Provider';
 import { getAntdLocale } from '@/utils/locale';
 
 import AntdV5MonkeyPatch from './AntdV5MonkeyPatch';
 import AppTheme from './AppTheme';
+import DevPanel from './DevPanel';
 import ImportSettings from './ImportSettings';
 import Locale from './Locale';
 import QueryProvider from './Query';
@@ -59,7 +59,7 @@ const GlobalLayout = async ({
             <Suspense>
               <ImportSettings />
               <ReactScan />
-              {process.env.NODE_ENV === 'development' && <DevPanel />}
+              <DevPanel />
             </Suspense>
           </ServerConfigStoreProvider>
         </AppTheme>
