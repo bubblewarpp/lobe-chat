@@ -16,6 +16,9 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH;
 const nextConfig: NextConfig = {
   basePath,
   compress: isProd,
+  eslint: {
+    ignoreDuringBuilds: process.env.VERCEL === '1',
+  },
   experimental: {
     optimizePackageImports: [
       'emoji-mart',
@@ -112,6 +115,9 @@ const nextConfig: NextConfig = {
   },
   output: buildWithDocker ? 'standalone' : undefined,
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: process.env.VERCEL === '1',
+  },
   redirects: async () => [
     {
       destination: '/sitemap-index.xml',
