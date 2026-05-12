@@ -1,10 +1,8 @@
-import ServerLayout from '@/components/server/ServerLayout';
+import { createElement } from 'react';
 
-import Desktop from './_layout/Desktop';
-import Mobile from './_layout/Mobile';
-import { LayoutProps } from './_layout/type';
+import LiteChat from './LiteChat';
 
-const Layout = ServerLayout<LayoutProps>({ Desktop, Mobile });
+const Layout = () => createElement(LiteChat);
 
 Layout.displayName = 'ChatLayout';
 
