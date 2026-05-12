@@ -3,7 +3,7 @@ import { createOpenaiAudioSpeech } from '@lobehub/tts/server';
 
 import { createBizOpenAI } from '@/app/(backend)/_deprecated/createBizOpenAI';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const preferredRegion = [
   'arn1',

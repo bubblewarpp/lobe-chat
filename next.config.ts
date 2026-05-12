@@ -199,6 +199,26 @@ const nextConfig: NextConfig = {
       asyncWebAssembly: true,
       layers: true,
     };
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      {
+        message: /Critical dependency: the request of a dependency is an expression/,
+        module: /@opentelemetry|require-in-the-middle|import-in-the-middle/,
+      },
+      {
+        message:
+          /Critical dependency: require function is used in a way in which dependencies cannot be statically extracted/,
+        module: /@opentelemetry|require-in-the-middle|import-in-the-middle/,
+      },
+      {
+        message: /A Node\.js API is used .* which is not supported in the Edge Runtime/,
+        module: /jose|next-auth|@auth/,
+      },
+    ];
+    config.infrastructureLogging = {
+      ...(config.infrastructureLogging || {}),
+      level: 'error',
+    };
 
     // 开启该插件会导致 pglite 的 fs bundler 被改表
     if (enableReactScan && !isUsePglite) {
@@ -228,56 +248,53 @@ const noWrapper = (config: NextConfig) => config;
 
 const withBundleAnalyzer = process.env.ANALYZE === 'true' ? analyzer() : noWrapper;
 
-const withPWA = isProd
-  ? withSerwistInit({
-      register: false,
-      swDest: 'public/sw.js',
-      swSrc: 'src/app/sw.ts',
-    })
-  : noWrapper;
+const withPWA =
+  isProd && process.env.VERCEL !== '1'
+    ? withSerwistInit({
+        register: false,
+        swDest: 'public/sw.js',
+        swSrc: 'src/app/sw.ts',
+      })
+    : noWrapper;
 
 const hasSentry = !!process.env.NEXT_PUBLIC_SENTRY_DSN;
 const withSentry =
   isProd && hasSentry
     ? (c: NextConfig) =>
-        withSentryConfig(
-          c,
-          {
-            org: process.env.SENTRY_ORG,
+        withSentryConfig(c, {
+          // Enables automatic instrumentation of Vercel Cron Monitors.
+          // See the following for more information:
+          // https://docs.sentry.io/product/crons/
+          // https://vercel.com/docs/cron-jobs
+          automaticVercelMonitors: true,
 
-            project: process.env.SENTRY_PROJECT,
-            // For all available options, see:
-            // https://github.com/getsentry/sentry-webpack-plugin#options
-            // Suppresses source map uploading logs during build
-            silent: true,
-          },
-          {
-            // Enables automatic instrumentation of Vercel Cron Monitors.
-            // See the following for more information:
-            // https://docs.sentry.io/product/crons/
-            // https://vercel.com/docs/cron-jobs
-            automaticVercelMonitors: true,
+          // Automatically tree-shake Sentry logger statements to reduce bundle size
+          disableLogger: true,
 
-            // Automatically tree-shake Sentry logger statements to reduce bundle size
-            disableLogger: true,
+          // Hides source maps from generated client bundles
+          hideSourceMaps: true,
 
-            // Hides source maps from generated client bundles
-            hideSourceMaps: true,
+          org: process.env.SENTRY_ORG,
 
-            // Transpiles SDK to be compatible with IE11 (increases bundle size)
-            transpileClientSDK: true,
+          project: process.env.SENTRY_PROJECT,
+          // For all available options, see:
+          // https://github.com/getsentry/sentry-webpack-plugin#options
+          // Suppresses source map uploading logs during build
+          silent: true,
 
-            // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers. (increases server load)
-            // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
-            // side errors will fail.
-            tunnelRoute: '/monitoring',
+          // Transpiles SDK to be compatible with IE11 (increases bundle size)
+          transpileClientSDK: true,
 
-            // For all available options, see:
-            // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-            // Upload a larger set of source maps for prettier stack traces (increases build time)
-            widenClientFileUpload: true,
-          },
-        )
+          // Routes browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers. (increases server load)
+          // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
+          // side errors will fail.
+          tunnelRoute: '/monitoring',
+
+          // For all available options, see:
+          // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+          // Upload a larger set of source maps for prettier stack traces (increases build time)
+          widenClientFileUpload: true,
+        })
     : noWrapper;
 
 export default withBundleAnalyzer(withPWA(withSentry(nextConfig) as NextConfig));

@@ -6,7 +6,7 @@ import { initAgentRuntimeWithUserPayload } from '@/server/modules/AgentRuntime';
 import { ChatErrorType } from '@/types/fetch';
 import { createErrorResponse } from '@/utils/errorResponse';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const noNeedAPIKey = (provider: string) =>
   [ModelProvider.OpenRouter].includes(provider as any);

@@ -7,7 +7,7 @@ import { initAgentRuntimeWithUserPayload } from '@/server/modules/AgentRuntime';
 import { ChatErrorType } from '@/types/fetch';
 import { createErrorResponse } from '@/utils/errorResponse';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const preferredRegion = [
   'arn1',

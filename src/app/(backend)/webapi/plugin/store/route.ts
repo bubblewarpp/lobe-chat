@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { DEFAULT_LANG } from '@/const/locale';
 import { PluginStore } from '@/server/modules/PluginStore';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const GET = async (req: Request) => {
   try {

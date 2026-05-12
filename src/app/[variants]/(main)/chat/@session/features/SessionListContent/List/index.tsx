@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Center } from 'react-layout-kit';
-import LazyLoad from 'react-lazy-load';
 
 import { SESSION_CHAT_URL } from '@/const/url';
 import { useSwitchSession } from '@/hooks/useSwitchSession';
@@ -42,7 +41,7 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
     <SkeletonList />
   ) : !isEmpty ? (
     dataSource.map(({ id }) => (
-      <LazyLoad className={styles} key={id}>
+      <div className={styles} key={id}>
         <Link
           aria-label={id}
           href={SESSION_CHAT_URL(id, mobile)}
@@ -53,7 +52,7 @@ const SessionList = memo<SessionListProps>(({ dataSource, groupId, showAddButton
         >
           <SessionItem id={id} />
         </Link>
-      </LazyLoad>
+      </div>
     ))
   ) : showCreateSession ? (
     showAddButton && <AddButton groupId={groupId} />

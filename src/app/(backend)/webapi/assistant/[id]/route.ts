@@ -1,7 +1,7 @@
 import { DEFAULT_LANG } from '@/const/locale';
 import { AssistantStore } from '@/server/modules/AssistantStore';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 type Params = Promise<{ id: string }>;
 

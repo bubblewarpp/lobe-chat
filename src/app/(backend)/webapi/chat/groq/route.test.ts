@@ -9,8 +9,8 @@ vi.mock('../[provider]/route', () => ({
 }));
 
 describe('Configuration tests', () => {
-  it('should have runtime set to "edge"', () => {
-    expect(runtime).toBe('edge');
+  it('should have runtime set to "nodejs"', () => {
+    expect(runtime).toBe('nodejs');
   });
 
   it('should contain specific regions in preferredRegion', () => {

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 import { AssistantStore } from '@/server/modules/AssistantStore';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const GET = async (req: Request) => {
   try {

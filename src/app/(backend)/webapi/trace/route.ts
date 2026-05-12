@@ -2,7 +2,7 @@ import { TraceEventType } from '@/const/trace';
 import { TraceClient } from '@/libs/traces';
 import { TraceEventBasePayload, TraceEventPayloads } from '@/types/trace';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 export const POST = async (req: Request) => {
   type RequestData = TraceEventPayloads & TraceEventBasePayload;
