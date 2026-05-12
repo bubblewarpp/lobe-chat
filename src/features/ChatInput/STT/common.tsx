@@ -51,31 +51,6 @@ const CommonSTT = memo<{
 
     return (
       <Dropdown
-        dropdownRender={
-          error
-            ? () => (
-                <Alert
-                  action={
-                    <Button onClick={handleRetry} size={'small'} type={'primary'}>
-                      {t('retry', { ns: 'common' })}
-                    </Button>
-                  }
-                  closable
-                  extra={
-                    error.body && (
-                      <Highlighter copyButtonSize={'small'} language={'json'} type={'pure'}>
-                        {JSON.stringify(error.body, null, 2)}
-                      </Highlighter>
-                    )
-                  }
-                  message={error.message}
-                  onClose={handleCloseError}
-                  style={{ alignItems: 'center' }}
-                  type="error"
-                />
-              )
-            : undefined
-        }
         menu={{
           activeKey: 'time',
           items: [
@@ -101,6 +76,31 @@ const CommonSTT = memo<{
         onOpenChange={handleDropdownVisibleChange}
         open={dropdownOpen || !!error || isRecording || isLoading}
         placement={mobile ? 'topRight' : 'top'}
+        popupRender={
+          error
+            ? () => (
+                <Alert
+                  action={
+                    <Button onClick={handleRetry} size={'small'} type={'primary'}>
+                      {t('retry', { ns: 'common' })}
+                    </Button>
+                  }
+                  closable
+                  extra={
+                    error.body && (
+                      <Highlighter copyButtonSize={'small'} language={'json'} type={'pure'}>
+                        {JSON.stringify(error.body, null, 2)}
+                      </Highlighter>
+                    )
+                  }
+                  message={error.message}
+                  onClose={handleCloseError}
+                  style={{ alignItems: 'center' }}
+                  type="error"
+                />
+              )
+            : undefined
+        }
         trigger={['click']}
       >
         <ActionIcon

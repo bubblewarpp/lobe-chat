@@ -133,7 +133,7 @@ const CreateNewProvider = memo<CreateNewProviderProps>(({ onClose, open }) => {
 
   return (
     <FormModal
-      destroyOnClose
+      destroyOnHidden
       items={[
         {
           children: basicItems,

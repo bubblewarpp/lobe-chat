@@ -27,9 +27,9 @@
   "sideEffects": false,
   "scripts": {
     "build": "next build",
+    "postbuild": "npm run build-sitemap && npm run build-migrate-db",
     "build:analyze": "ANALYZE=true next build",
     "build:docker": "DOCKER=true next build && npm run build-sitemap",
-    "postbuild": "npm run build-sitemap && npm run build-migrate-db",
     "build-migrate-db": "bun run db:migrate",
     "build-sitemap": "tsx ./scripts/buildSitemapIndex/index.ts",
     "db:generate": "drizzle-kit generate && npm run db:generate-client",
@@ -100,6 +100,9 @@
       "stylelint --fix",
       "eslint --fix"
     ]
+  },
+  "overrides": {
+    "mdast-util-gfm-autolink-literal": "2.0.0"
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
@@ -182,7 +185,7 @@
     "nanoid": "^5.0.9",
     "next": "^15.1.4",
     "next-auth": "beta",
-    "next-mdx-remote": "^5.0.0",
+    "next-mdx-remote": "^6.0.0",
     "nextjs-toploader": "^3.7.15",
     "numeral": "^2.0.6",
     "nuqs": "^1.20.0",
@@ -337,8 +340,5 @@
         }
       }
     }
-  },
-  "overrides": {
-    "mdast-util-gfm-autolink-literal": "2.0.0"
   }
 }
